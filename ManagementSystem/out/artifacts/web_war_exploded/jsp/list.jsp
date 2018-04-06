@@ -16,7 +16,7 @@
    <h1 align="center">用户列表展示</h1>
    <h5 align="right"><a href="${pageContext.request.contextPath}/jsp/register.jsp">添加用户</a> </h5>
   <c:choose>
-      <c:when test="${not empty requestScope.userList}">
+      <c:when test="${not empty requestScope.pageBean.pageData}">
         <table align="center" border="2" cellpadding="5" cellspacing="0" width="70%">
             <tr align="center">
                 <td>编号</td>
@@ -26,7 +26,7 @@
                 <td>薪水</td>
                 <td colspan="2">操作</td>
             </tr>
-            <c:forEach var="user" varStatus="status" items="${requestScope.userList}">
+            <c:forEach var="user" varStatus="status" items="${requestScope.pageBean.pageData}">
                 <tr align="center">
                     <td>${status.count}</td>
                     <td>${user.name}</td>
@@ -38,6 +38,15 @@
                         <a href="${url}/update.action?id=${user.id}">修改</a> </td>
                 </tr>
             </c:forEach>
+            <tr>
+                <td colspan="6" align="center">
+                    当前${requestScope.pageBean.currentPage }/${requestScope.pageBean.totalPage }页     &nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath }/user/getAll.action?currentPage=1">首页</a>
+                    <a href="${pageContext.request.contextPath }/user/getAll.action?currentPage=${requestScope.pageBean.currentPage-1}">上一页 </a>
+                    <a href="${pageContext.request.contextPath }/user/getAll.action?currentPage=${requestScope.pageBean.currentPage+1}">下一页 </a>
+                    <a href="${pageContext.request.contextPath }/user/getAll.action?currentPage=${requestScope.pageBean.totalPage}">末页</a>
+                </td>
+            </tr>
         </table>
       </c:when>
       <c:otherwise>

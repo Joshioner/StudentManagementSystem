@@ -1,5 +1,6 @@
 package Action;
 
+import Entity.PageBean;
 import Entity.User;
 import Service.UserService;
 import org.springframework.stereotype.Controller;
@@ -41,14 +42,21 @@ public class UserAction {
     }
 
     /**
-     * 查询所有用户
+     * 查询所有用户,
+     * @param currentPage:接收当前的页数
      */
     @RequestMapping("getAll")
-    public String getAll(Model model)
+    public String getAll(Model model,Integer currentPage)
     {
         try {
-           List<User> userList =  service.getAll();
-           model.addAttribute("userList",userList);
+            if (currentPage == null)
+                currentPage = 1;
+            PageBean pageBean = new PageBean();
+            //将当前页数封装到pageBean对象中
+            pageBean.setCurrentPage(currentPage);
+           service.getAll(pageBean);
+           //将pageBean封装到域对象中
+           model.addAttribute("pageBean",pageBean);
            return "/jsp/list.jsp";
         } catch (Exception e) {
             e.printStackTrace();

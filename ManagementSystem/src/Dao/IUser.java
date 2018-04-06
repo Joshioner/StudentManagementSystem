@@ -1,5 +1,6 @@
 package Dao;
 
+import Entity.PageBean;
 import Entity.User;
 
 import java.util.List;
@@ -15,8 +16,10 @@ public interface IUser {
     //修改用户
     void update(User user) throws Exception;
     //查找所有用户
-    List<User> getAll() throws Exception;
+    List<User> getAll(PageBean<User> pageBean) throws Exception;
     //根据用户id查找
     User findById(int id)throws Exception;
+    //查找总记录数
+    int getAllCount() throws Exception;
 
 }

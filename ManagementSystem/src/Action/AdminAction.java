@@ -30,7 +30,7 @@ public class AdminAction {
             return "redirect:/user/getAll.action";
         } catch (Exception e) {
             e.printStackTrace();
-            return "/error/error.jsp";
+            throw new RuntimeException(e);
         }
         //创建sqlsession对象
 //        SqlSession sqlSession = sqlSessionFactory.openSession();

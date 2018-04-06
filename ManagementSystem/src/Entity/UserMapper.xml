@@ -18,9 +18,11 @@
         INSERT  into user(uname,ugender,uage,usalary) VALUES (#{name},#{gender},#{age},#{salary})
     </insert>
 
-    <!--查询所有用户-->
-   <select id="getAll" resultMap="userMapper">
-       select uid,uname,uage,ugender,usalary from user
+    <!--查询所有用户
+    尽量避免不要用select * ,避免全表查询
+    -->
+   <select id="getAll" parameterType="map" resultMap="userMapper">
+       SELECT uid,uname,uage,ugender,usalary from user limit #{pstart},#{pindex}
    </select>
 
     <!--根据用户Id进行删除-->
@@ -39,5 +41,12 @@
         set uname=#{name},ugender=#{gender},uage=#{age} ,usalary=#{salary}
         WHERE uid=#{id}
     </update>
+
+    <!--查找总记录数
+
+    -->
+    <select id="getAllCount"  resultType="int">
+      SELECT count(*) from user
+    </select>
 
 </mapper>

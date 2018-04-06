@@ -1,6 +1,7 @@
 package Service;
 
 import Dao.IUser;
+import Entity.PageBean;
 import Entity.User;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class UserService {
      * 查询所有用户
      * @return
      */
-    public List<User> getAll() throws Exception {
-       return userDao.getAll();
+    public List<User> getAll(PageBean<User> pageBean) throws Exception {
+       return userDao.getAll(pageBean);
     }
 
     /**

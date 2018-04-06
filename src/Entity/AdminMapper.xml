@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminNamespace">
+    <resultMap  type="admin" id="AdminMapper">
+        <id property="id" column="aid"/>
+        <result property="name" column="aname"/>
+        <result property="pwd" column="apwd"/>
+    </resultMap>
+
+    <select id="login" parameterType="Entity.Admin" resultMap="AdminMapper">
+        SELECT * FROM admin where aname=#{name} and apwd=#{pwd}
+    </select>
+</mapper>

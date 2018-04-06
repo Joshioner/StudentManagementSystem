@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userNamespace">
+
+    <resultMap type="user" id="userMapper">
+        <id property="id" column="uid"/>
+        <result  property="name" column="uname"/>
+        <result property="gender" column="ugender"/>
+        <result property="age" column="uage"/>
+        <result property="salary" column="usalary"/>
+    </resultMap>
+
+
+    <!--添加用户-->
+    <insert id="add" parameterType="user">
+        INSERT  into user(uname,ugender,uage,usalary) VALUES (#{name},#{gender},#{age},#{salary})
+    </insert>
+
+    <!--查询所有用户-->
+   <select id="getAll" resultMap="userMapper">
+       select uid,uname,uage,ugender,usalary from user
+   </select>
+
+    <!--根据用户Id进行删除-->
+    <delete id="deleteById" parameterType="int">
+        DELETE from user where uid=#{id}
+    </delete>
+
+    <!--根据用户id查找-->
+    <select id="findById" parameterType="int" resultMap="userMapper">
+        SELECT uid,uname,uage,ugender,usalary FROM user where uid=#{id}
+    </select>
+
+    <!--更新数据-->
+    <update id="update" parameterType="user">
+        UPDATE user
+        set uname=#{name},ugender=#{gender},uage=#{age} ,usalary=#{salary}
+        WHERE uid=#{id}
+    </update>
+
+</mapper>
